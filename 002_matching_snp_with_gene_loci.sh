@@ -21,16 +21,16 @@ for file in *; do
     len="$(awk -F '\t' '{print NF; exit}' "$snp_file")" # Get number of columns of SNP input file and store in len
 
     # Check the number of columns
-    if [[ "$len" -eq 5 ]]; then
-      echo "Processing data with 5 columns"
+    if [[ "$len" -eq 4 ]]; then
+      echo "Processing data with 4 columns (p_ltr included)"
       found_snp_file=true
 
       # Running script that will correctly format SNP input data with 5 cols (5 cols = multiple similar SNP IDs, filtering by the lowest p-value - highest SNP significance)
       /Users/mattkahler/Desktop/cowpea_test/update_rda/len_05_filter.sh "$snp_file"      
 
       break
-    elif [[ "$len" -eq 4 ]]; then
-      echo "Processing data with 4 columns"
+    elif [[ "$len" -eq 3 ]]; then
+      echo "Processing data with 3 columns"
       found_snp_file=true
       
       # Running script that will correctly format SNP input data with 4 cols
@@ -38,7 +38,7 @@ for file in *; do
 
       break
     else
-      echo "Make sure there is the correct amount of cols in the SNP file provided. Number of cols should be 4 or 5. For more info, see the README.md"
+      echo "Make sure there is the correct amount of cols in the SNP file provided. Number of cols should be 3 or 4. For more info, see the README.md"
       found_snp_file=true
       break
     fi

@@ -18,8 +18,13 @@ data1="processing_data/filtered_assembly.gff3"
 data2="processing_data/tmp_compara_data.tsv"
 
 # Joining filtered_assembly.gff3 and new2.tsv to return a combined file which includes gene location and gene descriptions/homolog info
-join -1 5 -2 1 <(sort -k5 "$data1") <(sort -k1 "$data2" | sed 's/ /_/g') | sed 's/ /\t/g' > processing_data/joined_gene_info.tsv
+join -1 5 -2 1 <(sort -k5 "$data1") <(sort -k1 "$data2" | sed 's/ /_/g') | sed 's/ /\t/g' > processing_data/joined_tmp.tsv
+
+# Cleaning gene IDs
+sed 's/\.v1.2//g' processing_data/joined_tmp.tsv > processing_data/joined_gene_info.tsv
 
 # Cleaning tmp files produced by this script
 cd /Users/mattkahler/Desktop/cowpea_test/update_rda/data/processing_data
-rm -r filtered_assembly.gff3 tmp_compara_data.tsv
+rm -r filtered_assembly.gff3 tmp_compara_data.tsv joined_tmp.tsv
+
+
